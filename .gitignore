@@ -1,0 +1,13 @@
+node_modules
+dist
+.DS_Store
+server/public
+vite.config.ts.*
+*.tar.gz
+
+# Large media directories - excluded from deployment bundle
+private_exports/
+private_clean_exports/
+uploads/
+private_uploads/
+attached_assets/

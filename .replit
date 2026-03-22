@@ -1,0 +1,55 @@
+modules = ["nodejs-20", "web", "python-3.11", "postgresql-16"]
+run = "npm run dev"
+hidden = [".config", ".git", "generated-icon.png", "node_modules", "dist"]
+
+[nix]
+channel = "stable-24_05"
+packages = ["deno", "ffmpeg-full", "freetype", "lcms2", "libimagequant", "libjpeg", "libsodium", "libtiff", "libwebp", "libxcrypt", "openjpeg", "python312Packages.pillow", "quickjs", "tcl", "tk", "unzip", "yt-dlp", "zlib"]
+
+[[ports]]
+localPort = 5000
+externalPort = 80
+
+[env]
+PORT = "5000"
+
+[deployment]
+deploymentTarget = "vm"
+run = ["npm", "run", "start"]
+build = ["npm", "run", "build"]
+publicDir = "dist/public"
+
+[workflows]
+runButton = "Project"
+
+[[workflows.workflow]]
+name = "Project"
+mode = "parallel"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Start application"
+
+[[workflows.workflow]]
+name = "Start application"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npm run dev"
+waitForPort = 5000
+
+[agent]
+integrations = ["javascript_openai_ai_integrations:2.0.0"]
+
+[userenv]
+
+[userenv.shared]
+LOCAL_PROCESSING = "false"
+APP_BASE_URL = "https://poker-shorts-private.replit.app"
+RUNPOD_ENDPOINT_ID = "dx6xc2d1n5unmm"
+VPS_URL = "https://gbyl00lvgug80g-8787.proxy.runpod.net"
+RUNPOD_POD_ID = "gbyl00lvgug80g"
+RUNPOD_POD_URL = "https://gbyl00lvgug80g-8788.proxy.runpod.net"
+NEON_DATABASE_URL = "postgresql://neondb_owner:npg_meSDE52tpwZY@ep-sweet-breeze-agcecmg2-pooler.c-2.eu-central-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require"
